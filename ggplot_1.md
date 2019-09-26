@@ -151,3 +151,88 @@ weather_df %>%
 ![](ggplot_1_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
 
 ## Some extra stuff
+
+``` r
+weather_df %>% 
+  ggplot(aes(x = date, y = tmax, color = name)) +
+  geom_smooth(size = 2, se = F)
+```
+
+    ## `geom_smooth()` using method = 'loess' and formula 'y ~ x'
+
+    ## Warning: Removed 3 rows containing non-finite values (stat_smooth).
+
+![](ggplot_1_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
+
+2d density
+
+``` r
+weather_df %>% 
+  ggplot(aes(x = tmin, y = tmax)) +
+  geom_bin2d()
+```
+
+    ## Warning: Removed 15 rows containing non-finite values (stat_bin2d).
+
+![](ggplot_1_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
+
+## More kinds of plots
+
+``` r
+# Fill makes sure the bars are filled with colors
+weather_df %>% 
+  ggplot(aes(x = tmax, fill = name)) +
+  geom_histogram(position = "dodge", binwidth = 2) +
+  facet_grid(~name)
+```
+
+    ## Warning: Removed 3 rows containing non-finite values (stat_bin).
+
+![](ggplot_1_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
+
+Density plots\!\!
+
+``` r
+weather_df %>% 
+  ggplot(aes(x = tmax, fill = name)) +
+  geom_density(alpha = .3)
+```
+
+    ## Warning: Removed 3 rows containing non-finite values (stat_density).
+
+![](ggplot_1_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
+
+``` r
+# univariate plots
+weather_df %>% 
+  ggplot(aes(x = name, y = tmax)) +
+  geom_boxplot()
+```
+
+    ## Warning: Removed 3 rows containing non-finite values (stat_boxplot).
+
+![](ggplot_1_files/figure-gfm/unnamed-chunk-13-1.png)<!-- -->
+
+``` r
+weather_df %>% 
+  ggplot(aes(x = name, y = tmax, fill = name)) +
+  geom_violin()
+```
+
+    ## Warning: Removed 3 rows containing non-finite values (stat_ydensity).
+
+![](ggplot_1_files/figure-gfm/unnamed-chunk-14-1.png)<!-- -->
+
+ridge plots\!\!
+
+``` r
+weather_df %>% 
+  ggplot(aes(x = tmax, y = name)) +
+  geom_density_ridges()
+```
+
+    ## Picking joint bandwidth of 1.84
+
+    ## Warning: Removed 3 rows containing non-finite values (stat_density_ridges).
+
+![](ggplot_1_files/figure-gfm/unnamed-chunk-15-1.png)<!-- -->
