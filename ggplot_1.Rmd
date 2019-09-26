@@ -59,8 +59,50 @@ adding color
 ```{r}
 weather_df %>% 
   ggplot(aes(x = tmin, y = tmax)) +
-  geom_point(aes(color = name))
+  geom_point(aes(color = name), alpha = .4) # alpha is for transparancy
 ```
+
+
+
+why do `aes` positions matter?
+
+```{r}
+weather_df %>% 
+  ggplot(aes(x = tmin, y = tmax, color = name)) +
+  geom_point(alpha = .4) +
+  geom_smooth(se = F) # se makes the plot cleaner
+```
+
+
+facets
+
+```{r}
+weather_df %>% 
+  ggplot(aes(x = tmin, y = tmax, color = name)) +
+  geom_point(alpha = .4) +
+  geom_smooth(se = F) +
+  facet_grid(~name)
+```
+
+
+
+this is fine. but not interesting
+
+```{r}
+weather_df %>% 
+  ggplot(aes(x = date, y = tmax, color = name)) +
+  geom_point(aes(size = prcp), alpha = .5) +
+  geom_smooth(size = 2, se = F)
+```
+
+
+## Some extra stuff
+
+
+
+
+
+
 
 
 

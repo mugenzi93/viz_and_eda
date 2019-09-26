@@ -91,9 +91,63 @@ adding color
 ``` r
 weather_df %>% 
   ggplot(aes(x = tmin, y = tmax)) +
-  geom_point(aes(color = name))
+  geom_point(aes(color = name), alpha = .4) # alpha is for transparancy
 ```
 
     ## Warning: Removed 15 rows containing missing values (geom_point).
 
 ![](ggplot_1_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
+
+why do `aes` positions matter?
+
+``` r
+weather_df %>% 
+  ggplot(aes(x = tmin, y = tmax, color = name)) +
+  geom_point(alpha = .4) +
+  geom_smooth(se = F) # se makes the plot cleaner
+```
+
+    ## `geom_smooth()` using method = 'loess' and formula 'y ~ x'
+
+    ## Warning: Removed 15 rows containing non-finite values (stat_smooth).
+
+    ## Warning: Removed 15 rows containing missing values (geom_point).
+
+![](ggplot_1_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
+
+facets
+
+``` r
+weather_df %>% 
+  ggplot(aes(x = tmin, y = tmax, color = name)) +
+  geom_point(alpha = .4) +
+  geom_smooth(se = F) +
+  facet_grid(~name)
+```
+
+    ## `geom_smooth()` using method = 'loess' and formula 'y ~ x'
+
+    ## Warning: Removed 15 rows containing non-finite values (stat_smooth).
+
+    ## Warning: Removed 15 rows containing missing values (geom_point).
+
+![](ggplot_1_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
+
+this is fine. but not interesting
+
+``` r
+weather_df %>% 
+  ggplot(aes(x = date, y = tmax, color = name)) +
+  geom_point(aes(size = prcp), alpha = .5) +
+  geom_smooth(size = 2, se = F)
+```
+
+    ## `geom_smooth()` using method = 'loess' and formula 'y ~ x'
+
+    ## Warning: Removed 3 rows containing non-finite values (stat_smooth).
+
+    ## Warning: Removed 3 rows containing missing values (geom_point).
+
+![](ggplot_1_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
+
+## Some extra stuff
