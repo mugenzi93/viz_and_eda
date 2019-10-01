@@ -1,4 +1,4 @@
-ggplot\_1
+ggplot\_2
 ================
 Clement Mugenzi
 9/26/2019
@@ -274,3 +274,103 @@ ggsave("ggp_ridge_temp.pdf",
     ## Warning: Removed 15 rows containing missing values (geom_point).
 
 ![](ggplot_1_files/figure-gfm/unnamed-chunk-18-1.png)<!-- -->
+
+## Making New plots
+
+start with an old plot
+
+``` r
+weather_df %>% 
+  ggplot(aes(x = tmin, y = tmax)) + 
+  geom_point(aes(color = name), alpha = .5)
+```
+
+    ## Warning: Removed 15 rows containing missing values (geom_point).
+
+![](ggplot_1_files/figure-gfm/unnamed-chunk-19-1.png)<!-- -->
+
+Making labels
+
+``` r
+weather_df %>% 
+  ggplot(aes(x = tmin, y = tmax, color = name)) + 
+  geom_point(alpha = .5) + 
+  labs(
+    title = "Temperature plot",
+    x = "Minimum daily temperature (C)",
+    y = "Maxiumum daily temperature (C)",
+    caption = "Data from the rnoaa package"
+  )
+```
+
+    ## Warning: Removed 15 rows containing missing values (geom_point).
+
+![](ggplot_1_files/figure-gfm/unnamed-chunk-20-1.png)<!-- -->
+
+x axis ticks marks (to highlight where you wanna focus on your graph)
+
+``` r
+weather_df %>% 
+  ggplot(aes(x = tmin, y = tmax, color = name)) + 
+  geom_point(alpha = .5) + 
+  labs(
+    title = "Temperature plot",
+    x = "Minimum daily temperature (C)",
+    y = "Maxiumum daily temperature (C)",
+    caption = "Data from the rnoaa package"
+  ) +
+  scale_x_continuous(
+    breaks = c(-15, -5, 20),
+    labels = c("-15C", "-5(still too cold)", "20C") # you can do whatever
+  ) +
+  scale_y_continuous(
+    trans = "sqrt"
+  )
+```
+
+    ## Warning in self$trans$transform(x): NaNs produced
+
+    ## Warning: Transformation introduced infinite values in continuous y-axis
+
+    ## Warning: Removed 90 rows containing missing values (geom_point).
+
+![](ggplot_1_files/figure-gfm/unnamed-chunk-21-1.png)<!-- -->
+
+## Change the default colors
+
+``` r
+ggp_base = weather_df %>% 
+  ggplot(aes(x = tmin, y = tmax, color = name)) + 
+  geom_point(alpha = .5) + 
+  labs(
+    title = "Temperature plot",
+    x = "Minimum daily temperature (C)",
+    y = "Maxiumum daily temperature (C)",
+    caption = "Data from the rnoaa package"
+  ) +
+  viridis::scale_color_viridis(
+    name = "Location", 
+    discrete = TRUE
+  )
+ggp_base
+```
+
+    ## Warning: Removed 15 rows containing missing values (geom_point).
+
+![](ggplot_1_files/figure-gfm/unnamed-chunk-22-1.png)<!-- -->
+
+## themes
+
+``` r
+ggp_base +
+  theme_minimal() +
+  theme(legend.position = "bottom") 
+```
+
+    ## Warning: Removed 15 rows containing missing values (geom_point).
+
+![](ggplot_1_files/figure-gfm/unnamed-chunk-23-1.png)<!-- -->
+
+``` r
+# to make some space and here order matters a lot
+```
